@@ -1,11 +1,4 @@
----
-title: "Tech Requirements"
-author: "PLSC 21510/31510"
-date: "Spring 2022"
-output: html_document
----
-
-# Installation
+# Tech Requirement and Installation
 
 To participate in PLSC 21510/31510, you will need access to the software described below. Please intall them before the first class. 
 
