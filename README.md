@@ -1,6 +1,6 @@
 # PLSC 21510/31510: Introduction to Text as Data for Social Science 
 
-Spring 2022
+## Spring 2022
 
 ### About
 
