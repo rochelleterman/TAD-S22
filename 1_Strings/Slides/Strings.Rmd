@@ -6,7 +6,7 @@ institute: "University of Chicago"
 date: "Spring 2022"
 output:
   xaringan::moon_reader:
-    css: ["default",  "rladies", "rladies-fonts", "test.css"]
+    css: ["default",  "rladies", "rladies-fonts", "rt.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
