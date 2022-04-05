@@ -1,5 +1,5 @@
 ---
-title: "PLSC 31101: Computational Tools for Social Science"
+title: "PLSC 21510/31510: Introduction to Text as Data for Social Science"
 subtitle: "Strings"
 author: "Rochelle Terman"
 institute: "University of Chicago"
