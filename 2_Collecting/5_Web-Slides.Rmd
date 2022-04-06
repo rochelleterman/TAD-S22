@@ -1,5 +1,5 @@
 ---
-title: "Websraping"
+title: "Webscraping"
 author: "PLSC 21510/31510"
 date: "Spring 2022"
 output:
