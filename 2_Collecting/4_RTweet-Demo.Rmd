@@ -1,0 +1,234 @@
+---
+title: "RTweet"
+author: "PLSC 21510/31510"
+date: "Fall 2020"
+output: html_document
+---
+
+
+## Collecting Twitter Data with RTweet
+
+Twitter actually has two separate APIs:
+
+1. The __REST API__ allows you to read and write Twitter data. For research purposes, this allows you to search the recent history of tweets and look up specific users.
+
+2. The __Streaming API__ allows you to access public data flowing through Twitter in real time. It requires your R session to be running continuously, but allows you to capture a much larger sample of tweets while avoiding rate limits for the REST API.
+
+There are several packages for R for accessing and searching Twitter. In this unit, we will practice using the `RTweet` library, which allows us to easily collect data from Twitter's REST and stream APIs.
+
+### Setting up `RTweet`
+
+To use `RTweet`, follow these steps:
+
+1. If you do not have a Twitter account, create one [here](https://twitter.com/i/flow/signup).
+2. Install the `RTweet` package from CRAN.
+2. Load the package into R.
+3. Send a request to Twitter's API by calling any of the package's functions, like `search_tweets` or` get_timeline`.
+4. Approve the browser pop-up (to authorize the `rstats2twitter` app).
+5. Now, you are ready to use RTweet!
+
+Let's go ahead and load `RTweet` along with some other helpful packages:
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(rtweet)
+library(lubridate)
+
+# Run this line and approve the browser pop-up
+search_tweets("Chicago Power Outage")
+```
+
+### Search by Handles: `get_timeline` 
+
+Let's explore the `RTweet` package to see what we can learn about the tweeting habits of UChicago Political Science faculty.
+
+The function `get_timeline` will pull the most recent `n` number of tweets from a given handle(s). To pull tweets from multiple handles, write out a vector of the handles in the `user` argument.
+
+Let's pull tweets from five faculty members in the department:
+
+```{r}
+profs <- get_timeline(
+  user = c("carsonaust", 
+           "profpaulpoast", 
+           "pstanpolitics", 
+           "rochelleterman", 
+           "bobbygulotty"),
+  n = 1000, 
+  
+)
+```
+
+Now, let's visualize which professors are tweeting the most, by week. The `ts_plot()` function works with `ggplot` to plot tweets data as a time series-like data object.
+
+```{r, warning=FALSE}
+# plot all
+profs %>%
+  group_by(screen_name) %>%
+  ts_plot(by = "week") 
+
+# Look at the last 3 months
+profs %>%
+  group_by(screen_name) %>%
+  filter(created_at >= "2020-08-01") %>%
+  ts_plot(by = "week") # Plots tweets data as a time series-like data object
+```
+
+What is going on with `ProfPaulPoast` and `pstanpolitics`? Check out the help file for `get_timeline` to find out. 
+
+### Search by Hashtags and Text Strings: `search_tweets`
+
+We can also use `RTweet` to explore certain hashtags or text strings.
+
+Let's say we are interested in Duke Ellington. We can use `search_tweets` to pull the most recent `n` number of tweets that include the hashtag `#DukeEllington` or the string `"Duke Ellington"`. 
+
+#### Challenge 1: Hashtag Challenge. 
+
+Using the documentation for `search_tweets` as a guide, try pulling the 2,000 most recent tweets that include `#DukeEllington` OR `"Duke Ellington"` -- be sure to exclude retweets from the query.
+
+1. Why did your query not return 2,000 results?
+
+2. Identify the user that has used either the hashtag or the string in the greatest number of tweets -- where is this user from?
+
+```{r eval = F}
+# YOUR CODE HERE
+```
+
+### Rate Limits
+
+Twitter rate limits cap the number of search results returned to 18,000 every 15 minutes. To request more than that, simply set `retryonratelimit = TRUE`, and `rtweet` will wait for rate limit resets for you.
+
+```{r eval = F}
+## Uncomment code below to search for 250,000 tweets containing the word "data""
+
+# many_tweets <- search_tweets(
+#  q = "data", 
+#  n = 250000, 
+#  retryonratelimit = TRUE
+# )
+```
+
+### Search by Language
+
+It is possible to search for tweets in a specific language. Twitter supports 34 languages.
+
+```{r}
+head(langs)
+trump_french <- search_tweets("Trump", lang = "fr")
+head(trump_french$text)
+```
+
+### Get Friends: `get_friends`
+
+Retrieve a list of all the accounts a user follows.
+
+```{r}
+## Get user IDs of accounts followed by Rochelle (first 100)
+rt_fds <- get_friends("rochelleterman", n = 100)
+head(rt_fds)
+
+## Look up data on those accounts
+rt_fds_data <- lookup_users(rt_fds$user_id)
+
+## Extract just the tweet data with
+tweets_data(rt_fds_data)
+```
+
+### Get Followers: `get_followers`
+
+Retrieve a list of all the accounts that follow a user.
+
+```{r}
+## Get user IDs of accounts following rochelleterman (first 100)
+rt_flw <- get_followers("rochelleterman", n = 100)
+
+## Look up data on those accounts
+rt_flw_data <- lookup_users(rt_flw$user_id)
+```
+
+Beware -- things can get very big very fast:
+
+```{r}
+## How many total follows does CNN have?
+cnn <- lookup_users("cnn")
+cnn$followers_count
+
+## Getting them all would take a little over 5 days!
+
+# cnn_flw <- get_followers("cnn", 
+#                          n = cnn$followers_count, 
+#                          retryonratelimit = TRUE
+# )
+```
+
+
+### Stream Tweets: `stream_tweets()`
+
+In addition to accessing Twitter’s REST API (e.g., search_tweets and get_timeline), `rtweet` makes it possible to capture **live streams** of Twitter data using the `stream_tweets()` function. 
+
+By default, `stream_tweets` will stream for 30 seconds and return a random sample of tweets. To modify the default settings, `stream_tweets` accepts several parameters, including `q` (query used to filter tweets), `timeout` (duration or time of stream), and `file_name` (path name for saving raw JSON data).
+
+For example, let's say we wanted to stream a random rample (~1%) of tweets mentioning "realDonaldTrump" or "Trump".
+
+```{r eval = F}
+## Random sample for 30 seconds (default)
+stream1 <- stream_tweets(q = "realdonaldtrump, trump")
+
+## Stream sample for 60 seconds
+stream2 <- stream_tweets(q = "realdonaldtrump, trump",
+                         timeout = 60)
+```
+
+Barring any disconnection or disruption of the API, streaming will occupy your current R session until the specified time has elapsed. It is possible to start a new session — streaming itself usually is not very memory intensive — but operations may drag a bit during the *parsing* process, which takes place immediately after streaming ends. 
+
+Given a lengthy parsing process, you may want to stream tweets into JSON files upfront and parse those files later on. To do this, simply add `parse = FALSE` and make sure you provide a path (file name) to a location you can find later. 
+
+To ensure the stream automatically reconnects following any interruption prior to the specified stream time, use stream_tweets2().
+
+```{r eval = F}
+## Run code below to stream for a week (60 sec * 60 min * 24 hours * 7 days)
+# stream_tweets(
+#   q = "realdonaldtrump, trump",
+#   timeout = 60 * 60 * 24 * 7,
+#   file_name = "tweetsabouttrump.json",
+#   parse = FALSE
+# )
+
+## Read in the data as a tidy tbl data frame
+# djt <- parse_stream("tweetsabouttrump.json")
+```
+
+#### Challenge 2. 
+
+Pick your favorite musical artist and collect the 1,000 most recent tweets they are mentioned in (either by their handle or plain text). What is the most frequently used hashtag in these tweets other than #artistname? 
+
+**HINT**: To simplify this challenge, exclude Tweets with more than one hashtag using:
+
+```{r eval = F}
+# Hint: Filter out tweets with multiple hashtags
+music_tweets %>%
+  mutate(hashtags = as.character(hashtags)) %>%
+  filter(!is.na(hashtags),
+         !str_detect(hashtags, "c\\("))
+
+
+# YOUR CODE HERE
+```
+
+#### Challenge 3.
+
+Run the code below to pull the 1,000 most recent tweets from 5 UChicago faculty members:
+
+```{r}
+profs1000 <- get_timeline(
+  user = c("carsonaust", "profpaulpoast", "pstanpolitics", 
+           "rochelleterman", "bobbygulotty"),
+  n = 1000
+)
+```
+
+Which professors in the `profs1000` data use their iPhone to tweet? What percentage of their total tweets were sent from their iPhone?
+
+```{r}
+# YOUR CODE HERE
+```
+
