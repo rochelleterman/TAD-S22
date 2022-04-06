@@ -1,12 +1,10 @@
 ---
-title: "PLSC 21510/31510: Introduction to Text as Data for Social Science"
-subtitle: "Strings"
-author: "Rochelle Terman"
-institute: "University of Chicago"
+title: "Strings and Regular Expressions"
+author: "PLSC 21510/31510"
 date: "Spring 2022"
 output:
   xaringan::moon_reader:
-    css: ["default",  "rladies", "rladies-fonts", "rt.css"]
+    css: ["default",  "rladies", "rladies-fonts", "libs/rt.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -35,77 +33,6 @@ library(tidyverse)
 library(kableExtra)
 ```
 
-class: center, middle, inverse, title-slide
-
-# Preparing a Corpus
-
----
-## Preparing a corpus
-
-A .accent[corpus] (pl: .accent[corpora]) is a collection of texts, usually stored electronically, and from which we perform our analysis. 
-
-- A corpus might be a collection of news articles from Reuters or the published works of Shakespeare.
-
-<br />
-
-
---
-Within each corpus we will have separate articles, stories, volumes, each treated as a separate entity or record. Each unit is called a .accent[document] 
-
-- What defines a document will vary depending on the research context.
-
-
----
-## Digitization
-
-#### Goal: machine readable text
-
-* Store corpus as plain text (e.g. `.txt`, `.csv`), removing unnecessary formatting.
-
---
-* Plain text is .accent[encoded] in different ways. .red[`UTF-8`] is best. 
-
---
-* Leave Excel behind.
-
---
-* Corpora have .accent[data] (the text) and .accent[metadata] (e.g. author, date, publication)
-
---
-* Directory of `.txt`’s or a "tidy" dataset.
-
-
-
-???
-
-The same character can be encoded in multiple ways, and default encodings vary across computers and operating systems. For instance, UTF-8 encodes each character using as little as 8 bits of memory, whereas UTF-16 uses at little as 16 bits. Both methods of encoding are variable, meaning they use smaller or larger amounts of memory as needed to store a character. As an example, the character `A` is encoded in UTF-8 as 01000001 and in UTF-16 as 0000000001000001.
-
-CSVs can be tricky, because text data often contain commas and line breaks that introduce parsing er-rors. In our experience, Excel does not handle text-heavy CSVs properly. We recommend that research-ers limit their interaction with corpus-CSVs to R or plain-text editors.
-
----
-## Storing and structuring a corpus
-
-
-
-My preferred structure: Each document a row, one column for text, and other columns for metadata. 
-
-Save this table as a delimited plain text file, such as comma separated values.
-
-.scriptsize[
-| UID | date | author | title | text |
-|---|---|---|---|---|
-| 1 | 19-10-2020 | Chris Morris | What does 'no-deal' Australia-style Brexit mean? | Remember how this time last year we were talking about a no-deal Brexit? Well, it's back….Remember how this time last year we were talking about a no-deal Brexit? Well, it's back…. |
-| 2 | 08-10-2020 | Andrew Walker | WTO to name first female boss as shortlist narrows | The selection of a new director general of the World Trade Organisation (WTO) is entering its final stage…. |
-| 3 | 17-07-2020 | Nicholas Watt | Coronavirus to cause 'nightmare' economic crisis | Coronavirus will lead to a worldwide economic downturn somewhere between a "bad dream and worst nightmare", former cabinet minister Liam Fox has warned… |
-]
-
-
----
-class: center, middle, inverse, title-slide
-
-# Strings and Regular Expressions
-
----
 
 ### Strings and Regular Expressions
 
