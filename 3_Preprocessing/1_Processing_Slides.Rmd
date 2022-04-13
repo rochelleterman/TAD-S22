@@ -131,7 +131,8 @@ Save this table as a delimited plain text file, such as comma separated values.
 
 #### One (of many) recipe for preprocessing: retain useful information
 
-1. Remove capitalization, punctuation
+--
+1. Remove capitalization, punctuation, numbers
 
 --
 2. Discard Word Order: (**Bag of Words** Assumption)
@@ -148,7 +149,7 @@ Save this table as a delimited plain text file, such as comma separated values.
 ---
 ## 1. Remove capitalization, punctuation, numbers
 
-.accent[Assumption:] Capitalization, punctuation does not provide useful information.
+.accent[Assumption:] Capitalization, punctuation do not provide useful information.
 
 --
 .content-box-blue[
@@ -180,7 +181,7 @@ that nation or any nation`]
 
 --
 .content-box-yellow[
-`[a, any, are, civil, engaged, great, in, nation, now, or,
+`[a, any, are, civil, engaged, great, in, nation, nation, now, or,
 testing, that, war, we, whether]`]
 
 --
@@ -231,7 +232,7 @@ Three answers:
 
 --
 2. **Central Tendency in Text**: Words often imply what a text is about:  
-  `war, civil, union or tone consecrate, dead, died, lives.`  
+  `war, civil, union, consecrate, dead, died, lives.`  
   Likely to be used repeatedly $\leadsto$ create a theme for an article  
   
 
@@ -295,7 +296,7 @@ words to stem/lemma
 ## All together now
 
 .content-box-blue[
-`Four score and seven years ago our fathers brought forth on this continent a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.`]
+`Now we are engaged in a great civil war, testing whether that nation, or any nation.`]
 
 
 --
@@ -303,13 +304,13 @@ words to stem/lemma
 
 --
 .content-box-yellow[
-`four score and seven years ago our fathers brought forth on this continent a new nation conceived in liberty and dedicated to the proposition that all men are created equal`]
+`now we are engaged in a great civil war, testing whether that nation, or any nation`]
 
 ---
 ## All together now
 
 .content-box-blue[
-`four score and seven years ago our fathers brought forth on this continent a new nation conceived in liberty and dedicated to the proposition that all men are created equal`]
+`now we are engaged in a great civil war, testing whether that nation, or any nation`]
 
 
 --
@@ -317,14 +318,14 @@ words to stem/lemma
 
 --
 .content-box-yellow[
-`[four, score, and, seven, years, ago, our, fathers, brought, forth, on, this, continent, a, new, nation, conceived, in, liberty, and, dedicated, to, the, proposition, that, all, men, are, created, equal]`]
+`[a, any, are, civil, engaged, great, in, nation, nation, now, or, testing, that, war, we, whether]`]
 
 
 ---
 ## All together now
 
 .content-box-blue[
-`[four, score, and, seven, years, ago, our, fathers, brought, forth, on, this, continent, a, new, nation, conceived, in, liberty, and, dedicated, to, the, proposition, that, all, men, are, created, equal]`]
+`[a, any, are, civil, engaged, great, in, nation, nation, now, or, testing, that, war, we, whether]`]
 
 
 --
@@ -332,14 +333,14 @@ words to stem/lemma
 
 --
 .content-box-yellow[
-`[four, score, seven, years, ago, fathers, brought, forth, continent, new, nation, conceived, liberty, dedicated, proposition, men, created, equal]`]
+`[civil, engaged, great, nation, nation, now, testing, war,  whether]`]
 
 
 ---
 ## All together now
 
 .content-box-blue[
-`[four, score, seven, years, ago, fathers, brought, forth, continent, new, nation, conceived, liberty, dedicated, proposition, men, created, equal]`]
+`[civil, engaged, great, nation, nation, now, testing, war, whether]`]
 
 
 --
@@ -347,13 +348,13 @@ words to stem/lemma
 
 --
 .content-box-yellow[
-`[four, score, seven, year, ago, father, brought, forth, contin, new, nation, conceiv, liberti, dedic, proposit, men, creat, equal]`]
+`[civil, engag, great, nation, nation, now, test, war, whether]`]
 
 ---
 ## All together now
 
 .content-box-blue[
-`[four, score, seven, year, ago, father, brought, forth, contin, new, nation, conceiv, liberti, dedic, proposit, men, creat, equal]`]
+`[civil, engag, great, nation, nation, now, test, war, whether]`]
 
 
 --
@@ -364,13 +365,13 @@ words to stem/lemma
 
 | Stem | Count |
 |---|---|
-| ago | 1 |
-| brought | 1 |
-| seven | 1 |
-| creat | 1 |
-| conceiv | 1 |
-| men | 1 |
-| father | 1 |
+| civil | 1 |
+| engag | 1 |
+| nation | 2 |
+| now | 1 |
+| test | 1 |
+| war | 1 |
+| whether | 1 |
 | .   .   . | .   .   .   |
 
 ---
@@ -397,7 +398,7 @@ $\boldsymbol{X} = {N} \times{P}$ matrix
 $\boldsymbol{X} =$ .accent[main input for many computational text analysis applications.] 
 
 ---
-## Non-English ad Multi-language Issues
+## Non-English and Multi-language Issues
 
 #### Non-English languages pose specific challenges:
 - **Tokenization**: Some languages, like Chinese, Japanese, and Lao, do not have spaces between words and cannot be parsed into individual units.
