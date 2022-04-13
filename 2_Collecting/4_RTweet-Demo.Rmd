@@ -204,13 +204,15 @@ Pick your favorite musical artist and collect the 1,000 most recent tweets they 
 **HINT**: To simplify this challenge, exclude Tweets with more than one hashtag using:
 
 ```{r eval = F}
-# Hint: Filter out tweets with multiple hashtags
+## Hint: Filter out tweets with multiple hashtags
+## Don't try to run this code before defining "music_tweets"
 music_tweets %>%
-  mutate(hashtags = as.character(hashtags)) %>%
-  filter(!is.na(hashtags),
-         !str_detect(hashtags, "c\\("))
+ mutate(hashtags = as.character(hashtags)) %>%
+ filter(!is.na(hashtags),
+        !str_detect(hashtags, "c\\("))
+```
 
-
+```{r}
 # YOUR CODE HERE
 ```
 
