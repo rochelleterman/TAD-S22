@@ -15,8 +15,6 @@ In this document, we will demonstrate preprocessing techniques using the `quante
 
 Also see this helpful [reference guide](https://quanteda.io/reference/index.html).
 
-For this unit, we will be using a section of Machiavelli's Prince as our corpus. Since The Prince is a monograph, we have already "chunked" the text so that each short paragraph or "chunk" is considered a "document."
-
 ## Getting Started
 
 ### Installation
