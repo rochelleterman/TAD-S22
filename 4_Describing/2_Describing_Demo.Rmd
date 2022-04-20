@@ -175,3 +175,4 @@ textstat_readability(corpus_group(data_corpus_ukmanifestos, groups = Party), "Da
 ```
 
 ### Challenge 2: 
+

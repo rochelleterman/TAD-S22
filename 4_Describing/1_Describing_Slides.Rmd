@@ -288,7 +288,7 @@ How does the total number of types ${P}$ change as total number of tokens ${T}$ 
 ---
 ### Zipf's Law: Relative Frequency of Terms
 
-How does the total number of types ${P}$, change as total number of tokens ${T}$ increases?
+How frequent is the most frequent term, relative to the second frequent term?
 
 .content-box-blue[
 **Zipf's Law**: corpus frequency of ${i}$th most common term is $\alpha \frac{1}{i}$
@@ -300,8 +300,6 @@ etc
 
 #### Natural language follows a power-law distribution.
 - We employ a few words quite frequently, while devoting the bulk of our vocabulary to sporadic use
-- Even a modest corpus of 100 documents can easily contain thousands of unique words. 
-- The number of types increases rapidly at first, then less rapidly. 
 
 ---
 ### Zipf's Law: Brown's Corpus (1961)
@@ -459,7 +457,7 @@ How likely are we to see two words together ( ${w}_1 + {w}_2$ ) if they are inde
 |-----------------|-------------------|----------------------|--------|---|
 | ${w}_1 =$ **`new`**  | 303 </br> `New York`      | 240 </br> e.g. `new day`   | 543    |   |
 | ${w}_1 \neq$ **`new`** | 6 </br> e.g. `form york` | 909219 </br> e.g. `red eye` | 909225 |   |
-| **total**           | 309               | 909459               |        |   |
+| **total**           | 309               | 909459               |  909768      |   |
 
 
 --
@@ -505,7 +503,7 @@ kable(x)
 .accent[Type-to-token ratio (TTR)]: measure of lexical diversity.
 
 .content-box-blue[
-$${TTR} = \frac{\text{total types}}{\text{total types}}$$
+$${TTR} = \frac{\text{total types}}{\text{total tokens}}$$
 ]
 
 .accent[Example]: Authors with limited vocabularies will have a low lexical diversity.
@@ -542,7 +540,7 @@ ${TTR} = \frac{428}{978} = 0.43$
 .content-box-blue[
 **Guiraud index of lexical richness (1954)**
 
-$${R} = \frac{\text{total types}}{\sqrt{\text{total types}}}$$
+$${R} = \frac{\text{total types}}{\sqrt{\text{total tokens}}}$$
 ]
 
 .accent[NYP]: $\frac{250}{\sqrt{491}} = 11.28$ ; .accent[NYT]: $\frac{428}{\sqrt{978}} = 13.68$
