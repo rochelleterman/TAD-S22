@@ -1,7 +1,7 @@
 ---
 title: "Distinctive Words"
-author: "Introduction to Text Analysis"
-date: "May 2018"
+author: "PLSC 21510/31510"
+date: "Spring 2022"
 output: html_document
 ---
 
