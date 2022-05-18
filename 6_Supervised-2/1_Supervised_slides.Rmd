@@ -819,7 +819,7 @@ class: inverse, title-slide, middle, center
 3. Score unlabeled texts using those word scores, possibly transform  scores to original metric (-1 to 1).
 
 ---
-### Wordscaores
+### Wordscores
 
 ```{r echo=F}
 knitr::include_graphics("img/wordscores.png")
