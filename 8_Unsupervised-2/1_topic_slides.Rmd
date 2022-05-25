@@ -118,6 +118,7 @@ knitr::include_graphics("img/muslimwo.jpg")
 - **Method**: Topic Modeling
 
 ---
+### Today
 
 .accent[Today]: Topic model American news coverage of women abroad
 
@@ -151,9 +152,15 @@ Key R Packages
 ---
 ### Single vs. Mixed Membership Models
 
-.accent[Clustering]
+.accent[Single Membership Models]
 
 Document -> One Cluster
+
+
+--
+.accent[Mixed Membership Models]
+
+Document -> Multiple Clusters
 
 
 ---
@@ -195,12 +202,13 @@ We suspect that this corpus contains 2 topics. We want to reverse engineer those
 - Look at this .red[cute hamster] .blue[munching] on a piece of .blue[broccoli].
     
 .blue[Topic A] (interpreted to be about .blue[Food]) 
+
 .red[Topic B] (interpreted to be about .red[Pets])
 
 ---
 ### Latent Dirichlet Allocation
 
-.accent[LDA]: Populat topic modeling method.
+.accent[LDA]: Popular topic modeling method.
 
 --
 
@@ -250,8 +258,8 @@ We suspect that this corpus contains 2 topics. We want to reverse engineer those
 |--------------|--------------------|--------------------|-----------|
 | **1**        | .99                | .01                | 1         |
 | **2**        | .99                | .01                | 1         |
-| **3**        | .01                | 99                 | 1         |
-| **4**        | .01                | 99                 | 1         |
+| **3**        | .01                | .99                 | 1         |
+| **4**        | .01                | .99                 | 1         |
 | **5**        | .60                | .40                | 1         |
 ]
 
